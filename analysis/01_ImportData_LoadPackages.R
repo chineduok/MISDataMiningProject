@@ -7,12 +7,13 @@ library(tidyverse)
 library(e1071)
 library(rpart.plot)
 library(rpart)
-library(package)
+library(estimatr)
 
 
 # Import Dataset ----------------------------------------------------------
 
+df <- read_csv("input/marketing_campaign.csv")
 
-
-
+glimpse(df)
+names(arrange(df))
 #MISDataMiningProject
