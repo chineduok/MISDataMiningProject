@@ -1,4 +1,4 @@
-
+mktgCmpgn <- mktgCmpgn%>%select(-ID, - Z_Revenue, - Z_CostContact)
 
 # Split Data into Training and Testing set --------------------------------
 

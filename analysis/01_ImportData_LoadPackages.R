@@ -11,12 +11,12 @@ library(estimatr)
 library(neuralnet)
 library(dummies)
 library(fastDummies)
+library(plm)
+library(maxLik)
+library(pglm)
 
 
 # Import Dataset ----------------------------------------------------------
 
 df <- read_csv("input/marketing_campaign.csv")
 
-glimpse(df)
-names(arrange(df))
-#MISDataMiningProject
