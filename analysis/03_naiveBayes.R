@@ -1,4 +1,11 @@
-mktgCmpgn <- mktgCmpgn%>%select(-ID, - Z_Revenue, - Z_CostContact)
+library(tidyverse)
+library(e1071)
+
+
+# Display mktgCmpgn in the console
+mktgCmpgn <- read_csv("output/mktCmpgn.csv")
+
+mktgCmpgn <- mktgCmpgn%>%select(-ID,- Dt_Customer)
 
 # Split Data into Training and Testing set --------------------------------
 
@@ -31,6 +38,7 @@ mktgCmpgnModel <- naiveBayes(formula = Response ~ .,
 mktgCmpgnProbability <- predict(mktgCmpgnModel,
                                    mktgCmpgnTesting,
                                    type = "raw")
+
 
 # Display probability 
 print(mktgCmpgnProbability)
