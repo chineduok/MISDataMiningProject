@@ -17,13 +17,6 @@ setwd("/Users/liguanqi/Desktop/MIS 545/project")
 df <- read.csv(file = "mktCmpgn.csv",
                header = TRUE)
 
-summarise_at(group_by(df, Income_group),vars(MntMeatProducts),funs(mean(.,na.rm=TRUE)))
-summarise_at(group_by(df, Income_group),vars(MntFishProducts),funs(mean(.,na.rm=TRUE)))
-summarise_at(group_by(df, Income_group),vars(MntSweetProducts),funs(mean(.,na.rm=TRUE)))
-summarise_at(group_by(df, Income_group),vars(MntGoldProds),funs(mean(.,na.rm=TRUE)))
-summarise_at(group_by(df, Income_group),vars(MntFruits),funs(mean(.,na.rm=TRUE)))
-summarise_at(group_by(df, Income_group),vars(MntWines),funs(mean(.,na.rm=TRUE)))
-
 # Change the columns' types
 df$Income <- as.numeric(df$Income)
 df$Teenhome <- as.numeric(df$Teenhome)
