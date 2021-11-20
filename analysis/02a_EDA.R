@@ -52,3 +52,11 @@ mktCmpgn %>%
 # 
 
 mktCmpgn%>%group_by(Response)%>%summarise(n())
+
+# Get the average spending on different types of product in different income group
+summarise_at(group_by(df, Income_group),vars(MntMeatProducts),funs(mean(.,na.rm=TRUE)))
+summarise_at(group_by(df, Income_group),vars(MntFishProducts),funs(mean(.,na.rm=TRUE)))
+summarise_at(group_by(df, Income_group),vars(MntSweetProducts),funs(mean(.,na.rm=TRUE)))
+summarise_at(group_by(df, Income_group),vars(MntGoldProds),funs(mean(.,na.rm=TRUE)))
+summarise_at(group_by(df, Income_group),vars(MntFruits),funs(mean(.,na.rm=TRUE)))
+summarise_at(group_by(df, Income_group),vars(MntWines),funs(mean(.,na.rm=TRUE)))
