@@ -10,12 +10,8 @@ library(olsrr)
 library(smotefamily)
 library(dplyr)
 
-# Set the file dictionary
-setwd("/Users/liguanqi/Desktop/MIS 545/project")
-
 # Convert csv file into tibble
-df <- read.csv(file = "mktCmpgn.csv",
-               header = TRUE)
+df <- read_csv("output/mktCmpgn.csv")
 
 # Change the columns' types
 df$Income <- as.numeric(df$Income)
