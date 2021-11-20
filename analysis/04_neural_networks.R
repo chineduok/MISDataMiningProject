@@ -1,3 +1,9 @@
+library(tidyverse)
+library(neuralnet)
+library(dummies)
+library(fastDummies)
+
+
 # Display mktgCmpgn in the console
 mktgCmpgn <- read_csv("output/mktCmpgn.csv")
 
@@ -16,6 +22,7 @@ summary(mktgCmpgn)
 
 mktgCmpgnScaled <- mktgCmpgn%>%
   mutate(Income = scale(Income),
+         CustomerSinceDays = scale(CustomerSinceDays),
          Recency = scale(Recency),
          MntWines = scale(MntWines),
          MntFruits = scale(MntFruits),
@@ -35,7 +42,7 @@ mktgCmpgnScaled <- mktgCmpgn%>%
 mktgCmpgnScaled <- dummy_cols(mktgCmpgnScaled,
                                select_columns = c("Education","Marital_Status"))                                    
 
-mktgCmpgnScaled<- mktgCmpgnScaled%>%select(-Education, -Marital_Status , -Age_group)
+mktgCmpgnScaled <- mktgCmpgnScaled%>%select(-Education, -Marital_Status , -Age_group)
 # set random seed to 154
 set.seed(591)
 
@@ -56,20 +63,20 @@ str(mktgCmpgnTraining)
 mktgCmpgnTraining <- mktgCmpgnTraining%>% rename(Education_2n_Cycle = `Education_2n Cycle`)
 mktgCmpgnTesting <- mktgCmpgnTesting%>% rename(Education_2n_Cycle = `Education_2n Cycle`)
 names(mktgCmpgnTraining)
-mktgCmpgnTraining%>%select()
+
 # Generate Neural network model
 mktgCmpgnNeuralNet <- neuralnet(
   formula = Response ~ Income + Kidhome + Teenhome + Recency + MntWines + 
-    MntFruits + MntMeatProducts + MntFishProducts + MntSweetProducts +
-    MntGoldProds + NumDealsPurchases + NumWebPurchases + NumCatalogPurchases +
-    NumStorePurchases + NumWebVisitsMonth +  AcceptedCmp3 + AcceptedCmp4 +
+    MntFruits + MntMeatProducts + MntFishProducts +  MntSweetProducts + 
+    MntGoldProds + NumDealsPurchases + NumWebPurchases + NumCatalogPurchases + 
+    NumStorePurchases + NumWebVisitsMonth + AcceptedCmp3 + AcceptedCmp4 + 
     AcceptedCmp5 + AcceptedCmp1 + AcceptedCmp2 + Complain + Age +
-    Education_2n_Cycle + Education_Basic + Education_PhD + Education_Master +
-    Education_Graduation + Marital_Status_Absurd + Marital_Status_Alone +
-    Marital_Status_Divorced + Marital_Status_Married + Marital_Status_Single +
-    Marital_Status_Together + Marital_Status_Widow + Marital_Status_YOLO,
-  data = mktgCmpgnTraining, hidden = 4, act.fct = "logistic",
-  linear.output = FALSE , threshold = 0.02)  
+    CustomerSinceDays + Education_2n_Cycle + Education_Basic + Education_PhD + 
+    Education_Master +  Education_Graduation + Marital_Status_Divorced +
+    Marital_Status_Married + Marital_Status_Separated + Marital_Status_Single +
+    Marital_Status_Unmarried_couple + Marital_Status_Widow ,
+  data = mktgCmpgnTraining, hidden = 6, act.fct = "logistic",
+  linear.output = FALSE , threshold = 0.03)  
 
 # Display neural network results
 print(mktgCmpgnNeuralNet$result.matrix)
