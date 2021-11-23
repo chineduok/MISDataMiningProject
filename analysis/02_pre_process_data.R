@@ -73,6 +73,9 @@ model <- lm(Income ~. - ID , mktgCmpgnUnProcessedTrain)
 # Check model summary
 summary(model)
 
+# Test for multicollinearity using the ols_vif_tol() function
+ols_vif_tol(model)
+
 # Predict income
 mktgCmpgnUnProcessedTest <- mktgCmpgnUnProcessed1%>%filter(is.na(Income))
 
