@@ -49,7 +49,40 @@ mktCmpgn %>%
   group_by(AcceptedCmp1,AcceptedCmp2,AcceptedCmp3,AcceptedCmp4,AcceptedCmp5,Response)%>%
   summarise(n())
 
-# 
+# Query 3
+
+marketingCampaign %>%
+  group_by(CustomerSinceGroup) %>%
+  count()
+
+marketingCampaign %>%
+  group_by(CustomerSinceGroup) %>%
+  count(Response)
+
+marketingCampaign %>% 
+  ggplot() + 
+  geom_histogram(mapping = aes(x = CustomerSinceGroup),
+                 bins = 10,
+                 fill = "blue",
+                 color = "black",
+                 stat = "count") + 
+  labs(title = "Histogram of Loyalty Groups", 
+       x = "Customer Since Months",
+       y = "Count of Customers") 
+
+marketingCampaign1 <- marketingCampaign %>% 
+  mutate(Response = ifelse(Response == TRUE, "Responded", "Not responded"))
+
+marketingCampaign1 %>% 
+  ggplot() + 
+  geom_bar(mapping = aes(x = CustomerSinceGroup, fill = Response),
+                 bins = 10,
+                 color = "black",
+                 stat = "count") +
+  labs(title = "Histogram of Loyalty Groups", 
+       x = "Customer Since Months",
+       y = "Count of Customers by Response") 
+
 
 mktCmpgn%>%group_by(Response)%>%summarise(n())
 
